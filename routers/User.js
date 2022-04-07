@@ -4,6 +4,9 @@ const bcrypt = require('bcryptjs');
 const router = new express.Router();
 const User = require("../src/models/Users");
 const nodemailer = require('nodemailer');
+const jwt = require("jsonwebtoken");
+const cookieparser = require('cookie-parser');
+
 
 
 router.post("/register",async(req,res,next)=>
@@ -18,19 +21,30 @@ router.post("/register",async(req,res,next)=>
          Gender:req.body.Gender,
          
        });
-
+       const maxAge = 3*24*60*60;
+        const token = jwt.sign({ _id: user.id},'secret',
+        {
+          expiresIn: maxAge,
+        }
+      );
+      //adding cookie
+       res.cookie('jwtg',token,{htttpOnly:true,maxAge:maxAge*1000});
+     
+        user.token = token;
        user.save().then(()=>
        {     
             
             res.status(201).send({
             user:user._id,
             message : "User registered succesfully",
+            token : user.token
             
            });
       }).catch((err)=>{
        res.status(400).send(err);
       })
 })
+
 
 router.post('/confirmemail',async(req,res,next) =>
   {    
