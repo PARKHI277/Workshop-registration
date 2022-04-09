@@ -19,6 +19,7 @@ router.post("/register",async(req,res,next)=>
          Branch:req.body.Branch,
          Year:req.body.Year,
          Gender:req.body.Gender,
+         Residence: req.body.Residence
          
        });
        const maxAge = 3*24*60*60;

@@ -41,6 +41,11 @@ const UserSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    Residence:
+    {
+       type:String,
+       required : true
+    },
     token:{
         type:String,
         required:true
