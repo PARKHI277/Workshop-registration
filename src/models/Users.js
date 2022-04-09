@@ -23,7 +23,8 @@ const UserSchema = new mongoose.Schema({
     {
        type:String,
        required:'Email address is required',
-       lowercase:true
+       lowercase:true.valueOf,
+       unique:true
     },
     Branch:
     {
