@@ -8,14 +8,16 @@ const UserSchema = new mongoose.Schema({
     {
        type:Number,
        required:true,
-       maxlength:13
+       maxlength:13,
+       unique:true
     },
     Contactno:
     {
         type:Number,
         required:true,
         maxlength:10,
-        minlength:10
+        minlength:10,
+        unique:true
     },
     Email:
     {
