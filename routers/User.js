@@ -25,7 +25,7 @@ router.post("/register",async(req,res,next)=>
          Residence: req.body.Residence
          
        });
-       const maxAge = 3*24*60*60;
+        const maxAge = 3*24*60*60;
         const token = jwt.sign({ _id: user.id},'secret',
         {
           expiresIn: maxAge,
@@ -38,16 +38,16 @@ router.post("/register",async(req,res,next)=>
        user.save().then(()=>
        {     
             
-            res.status(200).send({
+            return res.status(200).send({
             user:user._id,
             message : "User registered succesfully",
             token : user.token
             
            }); 
-           return res.status(200).send({message : "User registered succesfully" })
+          
       }).catch((err)=>{
       
-       res.status(400).send({message : "Registration is not succesfully done" });
+       return res.status(400).send({message : "Registration is not succesfully done" });
       })
 })
 
@@ -100,10 +100,10 @@ router.post('/confirmemail',async(req,res,next) =>
 {
      try{
          const Usersdata = await User.find();
-         res.send(Usersdata);
+         return res.send(Usersdata);
      }catch(e)
      {
-      res.send(e);
+      return res.send(e);
      }
 })
 

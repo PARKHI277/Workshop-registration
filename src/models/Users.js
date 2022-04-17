@@ -53,24 +53,8 @@ const UserSchema = new mongoose.Schema({
 
 })
 
-// UserSchema.statics.isThisEmailInUse = async function(Email)
-// {   if(!Email) throw new Error('Email field can not be empty')
-//     try{
-//     const user = await this.findOne({Email})
-//     if(user)
-//     {
-//         res.status(400).send("Email is already registred");
-//     }
-//     else
-//     {
-//         res.status(201).send("Email is valid");
-//     }
-// } catch(error)
-// {
-//     console.log('error-inside isthisEmailinuse method',error.message);
-//     return false;
-// }
-// }
+
+
 
 const User = new mongoose.model('User',UserSchema);
 module.exports = User; 
