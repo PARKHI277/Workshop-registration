@@ -44,6 +44,7 @@ router.post("/register",async(req,res,next)=>
             token : user.token
             
            }); 
+           return res.status(200).send({message : "User registered succesfully" })
       }).catch((err)=>{
       
        res.status(400).send({message : "Registration is not succesfully done" });
@@ -81,16 +82,16 @@ router.post('/confirmemail',async(req,res,next) =>
                        console.log("Mail sent");
                    }
               })
-               res.status(200).send({message : "sent to your email" })
+               return res.status(200).send({message : "sent to your email" })
               }
               catch(err)
               {
-                  res.status(400).send({message: "Something went wrong" });
+                 return res.status(400).send({message: "Something went wrong" });
               }
       }
       else
       {
-          res.send({message: "Please enter valid email id"})
+          return res.send({message: "Please enter valid email id"})
       }
    })
 

@@ -13,6 +13,9 @@
   },
   "author": "parkhi",
   "license": "ISC",
+  "engines": {
+    "node" : "14.17.5"
+  },
   "bugs": {
     "url": "https://github.com/PARKHI277/Workshop-registration/issues"
   },
