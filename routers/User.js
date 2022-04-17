@@ -4,8 +4,8 @@ const bcrypt = require('bcryptjs');
 const router = new express.Router();
 const User = require("../src/models/Users");
 const nodemailer = require('nodemailer');
-// const jwt = require("jsonwebtoken");
-// const cookieparser = require('cookie-parser');
+const jwt = require("jsonwebtoken");
+const cookieparser = require('cookie-parser');
 
 
 
@@ -25,27 +25,28 @@ router.post("/register",async(req,res,next)=>
          Residence: req.body.Residence
          
        });
-    //    const maxAge = 3*24*60*60;
-    //     const token = jwt.sign({ _id: user.id},'secret',
-    //     {
-    //       expiresIn: maxAge,
-    //     }
-    //   );
-    //   //adding cookie
-    //    res.cookie('jwtg',token,{htttpOnly:true,maxAge:maxAge*1000});
+       const maxAge = 3*24*60*60;
+        const token = jwt.sign({ _id: user.id},'secret',
+        {
+          expiresIn: maxAge,
+        }
+      );
+      //adding cookie
+       res.cookie('jwtg',token,{htttpOnly:true,maxAge:maxAge*1000});
      
-    //     user.token = token;
+        user.token = token;
        user.save().then(()=>
        {     
             
-            res.status(201).send({
+            res.status(200).send({
             user:user._id,
             message : "User registered succesfully",
-            // token : user.token
+            token : user.token
             
            }); 
       }).catch((err)=>{
-       res.status(400).send("Registration is not succesfully done");
+      
+       res.status(400).send({message : "Registration is not succesfully done" });
       })
 })
 
@@ -80,16 +81,16 @@ router.post('/confirmemail',async(req,res,next) =>
                        console.log("Mail sent");
                    }
               })
-               res.status(201).send(" sent to your email")
+               res.status(200).send({message : "sent to your email" })
               }
               catch(err)
               {
-                  res.status(400).send("Something went wrong");
+                  res.status(400).send({message: "Something went wrong" });
               }
       }
       else
       {
-          res.send("Please enter valid email id")
+          res.send({message: "Please enter valid email id"})
       }
    })
 
