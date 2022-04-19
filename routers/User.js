@@ -108,4 +108,9 @@ router.post('/confirmemail',async(req,res,next) =>
      }
 })
 
+router.get("/confirmemail",async(req,res,next) =>
+{
+    res.send("Api working properley");
+})
+
 module.exports = router;
