@@ -114,3 +114,14 @@ router.get("/confirmemail",async(req,res,next) =>
 })
 
 module.exports = router;
+
+// {
+//     "Name":"Parkhi",
+//     "Rollno": "2000270110065",
+//     "Contactno":"7668043605",
+//     "Email" : "Parkhi2011103@akgec.ac.in",
+//     "Branch":"CSIT",
+//     "Year":"2",
+//     "Gender": "Female",
+//     "Residence" : "Hostler"
+//     }
