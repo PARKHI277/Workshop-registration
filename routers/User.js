@@ -6,6 +6,7 @@ const User = require("../src/models/Users");
 const nodemailer = require('nodemailer');
 const jwt = require("jsonwebtoken");
 const cookieparser = require('cookie-parser');
+const { status } = require('express/lib/response');
 
 
 
@@ -38,11 +39,11 @@ router.post("/register",async(req,res,next)=>
        user.save().then(()=>
        {     
             
-            return res.status(200).send({
+            res.status(200).send({
             user:user._id,
             message : "User registered succesfully",
-            token : user.token
-            
+            token : user.token,
+    
            }); 
           
       }).catch((err)=>{
