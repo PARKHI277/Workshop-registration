@@ -48,7 +48,7 @@ router.post("/register",async(req,res,next)=>
           
       }).catch((err)=>{
       
-       return res.status(400).send({message : "Registration is not succesfully done" });
+       return res.status(400).send({error : err, message : "Registration is not succesfully done" });
       })
 })
 
