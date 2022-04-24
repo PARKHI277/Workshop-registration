@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
     },
     Rollno:
     {
-       type:Number,
+       type:String,
        required:true,
        maxlength:13,
        unique:true
