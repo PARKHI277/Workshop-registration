@@ -7,6 +7,7 @@ const nodemailer = require('nodemailer');
 const jwt = require("jsonwebtoken");
 const cookieparser = require('cookie-parser');
 const { status } = require('express/lib/response');
+ const db = require('../src/db/conn');
 
 
 
@@ -114,6 +115,12 @@ router.get("/confirmemail",async(req,res,next) =>
 {
     res.send("Api working properley");
 })
+
+// router.delete("/:id",async(req,res,next)=>
+// {
+//    const result = await.deleteOne({id:req.params.id});
+//    res.send(result);
+// })
 
 module.exports = router;
 
