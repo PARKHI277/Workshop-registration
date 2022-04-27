@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 const cookieparser = require('cookie-parser');
 const { status } = require('express/lib/response');
  const db = require('../src/db/conn');
+const request = require('request');
 
 
 
@@ -56,71 +57,95 @@ router.post("/register",async(req,res,next)=>
 })
 
 
-router.post('/confirmemail',async(req,res,next) =>
-  {    
-      const userexixt = await User.findOne({Email: req.body.Email});
+// router.post('/confirmemail',async(req,res,next) =>
+//   {    
+//       const userexixt = await User.findOne({Email: req.body.Email});
       
-      if(userexixt){
-      try{    
+//       if(userexixt){
+//       try{    
                
-             const transporter = nodemailer.createTransport({
-                   service:"gmail",
-                   auth:{
-                    user : "codechef277@gmail.com",
-                       pass: "Apiuser@1234"
-                   }
-               });
-               const mailOptions = {
-                   from:"codechef277@gmail.com",
-                   to:userexixt.Email,
-                   subject:"CSI WORKSHOP REGISTRATION",
-                   text: "You succesfully registred for workshop"
-               };
-               transporter.sendMail(mailOptions,function(error,info){
-                   if(error)
-                   {
-                       console.log(error);
-                   }
-                   else
-                   {
-                       console.log("Mail sent");
-                   }
-              })
-               return res.status(200).send({message : "sent to your email" })
-              }
-              catch(err)
-              {
-                 return res.status(400).send({message: "Something went wrong" });
-              }
-      }
-      else
-      {
-          return res.send({message: "Please enter valid email id"})
-      }
-   })
+//              const transporter = nodemailer.createTransport({
+//                    service:"gmail",
+//                    auth:{
+//                     user : "codechef277@gmail.com",
+//                        pass: "Apiuser@1234"
+//                    }
+//                });
+//                const mailOptions = {
+//                    from:"codechef277@gmail.com",
+//                    to:userexixt.Email,
+//                    subject:"CSI WORKSHOP REGISTRATION",
+//                    text: "You succesfully registred for workshop"
+//                };
+//                transporter.sendMail(mailOptions,function(error,info){
+//                    if(error)
+//                    {
+//                        console.log(error);
+//                    }
+//                    else
+//                    {
+//                        console.log("Mail sent");
+//                    }
+//               })
+//                return res.status(200).send({message : "sent to your email" })
+//               }
+//               catch(err)
+//               {
+//                  return res.status(400).send({message: "Something went wrong" });
+//               }
+//       }
+//       else
+//       {
+//           return res.send({message: "Please enter valid email id"})
+//       }
+//    })
 
 
-   router.get("/register",async(req,res,next)=>
-{
-     try{
-         const Usersdata = await User.find();
-         return res.send(Usersdata);
-     }catch(e)
-     {
-      return res.send(e);
-     }
-})
-
-router.get("/confirmemail",async(req,res,next) =>
-{
-    res.send("Api working properley");
-})
-
-// router.delete("/:id",async(req,res,next)=>
+//    router.get("/register",async(req,res,next)=>
 // {
-//    const result = await.deleteOne({id:req.params.id});
-//    res.send(result);
+//      try{
+//          const Usersdata = await User.find();
+//          return res.send(Usersdata);
+//      }catch(e)
+//      {
+//       return res.send(e);
+//      }
 // })
+
+// router.get("/confirmemail",async(req,res,next) =>
+// {
+//     res.send("Api working properley");
+// })
+
+// // router.delete("/:id",async(req,res,next)=>
+// // {
+// //    const result = await.deleteOne({id:req.params.id});
+// //    res.send(result);
+// // })
+
+router.post("/captcha",(req,res) => {
+    if(
+        req.body.captcha === undefined ||
+        req.body.captcha == ' ' || 
+        req.body.captcha === null
+    ){
+        return res.json({"sucess" : false , "msg":"Please select captcha"});
+    }
+
+    const secretKey = '6Lf2daYfAAAAAIq6RM7nqIRg-37vFGGOaJAVvCOM';
+
+    const verifyUrl = 'https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}';
+
+    request(verifyUrl , (err,response,body) => {
+        body = JSON.parse(body);
+    })
+
+    if(body.sucess !== undefined && !body.success){
+        return res.json({"sucess" : false, "msg":"Failed captcha verification"});
+    }
+
+    return res.json({"success":true,"msg":"Captcha passed"});
+});
 
 module.exports = router;
 
