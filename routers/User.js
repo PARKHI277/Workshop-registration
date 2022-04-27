@@ -132,7 +132,7 @@ router.post("/captcha",(req,res) => {
         return res.json({"sucess" : false , "msg":"Please select captcha"});
     }
 
-    const secretKey = '6LcqyacfAAAAAALYNkev9rnVltFFB-BliThTS7bN';
+    const secretKey = '6LdoI6gfAAAAAKQDIBFbA6Sg1v7suRBVDYcZ8mZz';
 
     const verifyUrl = 'https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}&remoteip=${req.connection.remoteAddress}';
 
