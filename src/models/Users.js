@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema({
     Rollno:
     {
        type:String,
+
        required:true,
        maxlength:13,
        unique:true
@@ -22,6 +23,10 @@ const UserSchema = new mongoose.Schema({
     Email:
     {
        type:String,
+       match: [
+        /[a-z0-9]+@akgec.ac.in/,
+        'Please add a valid email address.'
+      ],
        required:'Email address is required',
        lowercase:true.valueOf,
        unique:true
