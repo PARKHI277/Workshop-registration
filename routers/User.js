@@ -101,16 +101,16 @@ router.post("/register",async(req,res,next)=>
 //    })
 
 
-//    router.get("/register",async(req,res,next)=>
-// {
-//      try{
-//          const Usersdata = await User.find();
-//          return res.send(Usersdata);
-//      }catch(e)
-//      {
-//       return res.send(e);
-//      }
-// })
+   router.get("/register",async(req,res,next)=>
+{
+     try{
+         const Usersdata = await User.find();
+         return res.send(Usersdata);
+     }catch(e)
+     {
+      return res.send(e);
+     }
+})
 
 // router.get("/confirmemail",async(req,res,next) =>
 // {
