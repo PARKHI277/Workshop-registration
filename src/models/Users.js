@@ -9,6 +9,7 @@ const UserSchema = new mongoose.Schema({
        type:String,
        required:true,
        maxlength:7,
+       minlength: 7,
        unique:true
     },
     Contactno:
