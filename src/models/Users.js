@@ -7,9 +7,8 @@ const UserSchema = new mongoose.Schema({
     Rollno:
     {
        type:String,
-
        required:true,
-       maxlength:13,
+       maxlength:7,
        unique:true
     },
     Contactno:
@@ -51,6 +50,7 @@ const UserSchema = new mongoose.Schema({
        type:String,
        required : true
     },
+
     token:{
         type:String,
         required:true
